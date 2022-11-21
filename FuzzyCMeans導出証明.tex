@@ -1,0 +1,107 @@
+\documentclass[uplatex,dvipdfmx,10pt]{beamer}
+\usepackage{amsmath,amssymb}
+\usepackage{comment}
+\usepackage{bxdpx-beamer}% dvipdfmxなので必要
+\usetheme{Singapore}
+\usefonttheme[onlymath]{serif}
+
+\begin{document}
+\section{FCM法の更新則の導出(補足)}
+\begin{frame}
+
+ラグランジュ乗数を$\lambda_{i}$, s.t. $i=1, \cdots, n$とする．
+ラグランジュ関数を$L$とおくと，
+\[
+L=\sum_{c=1}^{C} \sum_{i=1}^{n}\left(u_{c i}\right)^{\theta} d_{c i}+\sum_{c=1}^{C} \lambda_{i}\left(\sum_{c=1}^{c} u_{c i}-1\right)
+\]
+最適性の必要条件は，
+\[
+\frac{\partial L}{\partial u_{c i}}=\theta\left(u_{c i}\right)^{\theta-1} d_{ci}+\lambda_{i}=0
+\]
+$x_i\ne b_c$のとき
+\begin{equation}
+u _{c i}=\left(\frac{-\lambda_{i}}{\theta d_{c i}}\right)^{\frac{1}{\theta-1}}
+\end{equation}
+
+\begin{equation}
+\left(\frac{-\lambda_i}{ \theta}\right)^{\frac{1}{\theta-1}}=u_{c i}(d_{ci})^{\frac{1}{\theta-1}}
+\end{equation}
+
+\end{frame}
+\begin{frame}
+
+$\sum_{c=1}^{C} u_{c i}=1$が成り立つので
+\begin{equation}
+\sum_{c=1}^{C}\left(\frac{-\lambda_{i}}{\theta d _{c i}}\right)^{\frac{1}{\theta-1}}=1
+\end{equation}
+(3)において$c$を$l$とすると，
+\begin{equation}
+\sum_{l=1}^{C}\left(\frac{-\lambda_{i}}{\theta d_{l i}}\right)^{\frac{1}{\theta-1}}=1
+\end{equation}
+(2)(4)より，
+\[
+\sum_{\ell=1}^{C} u_{c i}\left(\frac{d_{c i}}{d _{l i}}\right)^{\frac{1}{\theta-1}}=1
+\]
+\[
+u_{c i}=\left(\sum_{l=1}^{C}\left(\frac{d_{c i}}{d _{li}}\right)^{\frac{1}{\theta-1}}\right)^{-1}
+\]
+\begin{equation}
+u_{ci}=\left(\sum_{l=1}^{C}\left(\frac{\left\|x_{i}-b_{c}\right\|^{2}}{\left\|x_{i}-b_{l}\right\|^{2}}\right)^{\frac{1}{\theta - 1}}\right)^{-1}
+\end{equation}
+\begin{flushright}
+  証明終
+\end{flushright}
+\end{frame}
+
+\begin{frame}
+
+\begin{equation}
+\begin{aligned}
+J_{f c m} &=\sum_{c=1}^{c} \sum_{i=1}^{n} u_{c i}^{\theta} d_{c i} \\
+&=\sum_{c=1}^C \sum_{i=1}^{n} u_{c i}^{\theta}\left\|x_{i}-b _c\right\|^{2}
+\end{aligned}
+\end{equation}
+最適性の必要条件は
+\begin{equation}
+\frac{\partial}{\partial b_c} \left(\sum_{i=1}^{n} u_{c i}^{\theta}\left\|x_{i}-b _c\right\|^{2}\right)=\sum_{i=1}^{n} u_{c i}^{\theta}(-2)\left(x_{i}-b _c\right)=0
+\end{equation}
+
+\begin{equation}
+\sum_{i=1}^{n} u_{c i}^{\theta} x_{i}=\sum_{i=1}^{n} u_{c i}^{\theta} b_{c}
+\end{equation}
+から
+\begin{equation}
+b_{c}=\dfrac{\displaystyle \sum_{i=1}^{n} u_{c i}^{\theta} x_{i}}{\displaystyle \sum_{i=1}^{n} u_{c i}^{\theta}}
+\end{equation}
+を得る．
+\end{frame}
+
+\begin{comment}
+
+\section{FCM法とkmeans法の局所解頻度の比較}
+データセットとして，winequality-red(インスタンス数：1599，パラメータ数：11)を用いた．
+
+1000回試行したところ，FCM法では局所解は発生しなかった．
+kmeans法では，14種類の局所解が得られその頻度は，2,46,285,25,22,14,252,112,9,1,31,5,2,194回ずつ起こった．
+
+\begin{center}
+\begin{verbatim}
+  Input variables (based on physicochemical tests):
+  1 - fixed acidity
+  2 - volatile acidity
+  3 - citric acid
+  4 - residual sugar
+  5 - chlorides
+  6 - free sulfur dioxide
+  7 - total sulfur dioxide
+  8 - density
+  9 - pH
+  10 - sulphates
+  11 - alcohol
+  Output variable (based on sensory data):
+  12 - quality (score between 0 and 10)
+\end{verbatim}
+\end{center}
+\end{comment}
+
+\end{document}
